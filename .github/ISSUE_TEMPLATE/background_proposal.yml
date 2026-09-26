@@ -1,0 +1,37 @@
+name: Background proposal
+description: A new background, or a fix to an existing one
+labels: [background]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A background exists in two places: a canvas drawing here, and CSS in
+        [playingvibe/activity](https://github.com/playingvibe/activity). A new one needs both.
+  - type: input
+    id: key
+    attributes:
+      label: Name and key
+      description: Lowercase, URL-safe, for example `dusk`
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What it looks like
+      description: A sketch, a render from `npm run backgrounds`, or a description. Say what it should feel like.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Rights
+      options:
+        - label: I made this, or have the right to submit it, and it contains no third-party marks or characters
+          required: true
+        - label: Any AI-generated part is named above
+  - type: checkboxes
+    id: help
+    attributes:
+      label: Can you build it?
+      options:
+        - label: I'd like to send the pull request (here, and one to the Activity)

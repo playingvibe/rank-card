@@ -1,0 +1,28 @@
+{
+  "name": "vibe-rank-card",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The rank card of Vibe, a Discord music bot: a canvas renderer that turns listening stats into a PNG.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "render": "node scripts/assets/render-rank-card.js --out out/card.png",
+    "backgrounds": "node scripts/assets/render-rank-card-backgrounds.js --out out",
+    "lint": "eslint . --max-warnings 0",
+    "test": "node --test \"tests/*.test.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/playingvibe/rank-card.git"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.8"
+  },
+  "devDependencies": {
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0"
+  }
+}

@@ -1,0 +1,29 @@
+name: Bug report
+description: The card looks wrong, or rendering fails
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. **Security problems don't go here**: see SECURITY.md.
+        Use made-up data; never paste a token or anyone's private details.
+  - type: textarea
+    id: input
+    attributes:
+      label: What you rendered
+      description: The `target` and `stats` you passed (or the command you ran), and the background, accent and premium values.
+      render: js
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw and what you expected instead. Attach the image you got.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Node version and operating system
+      placeholder: Node 22.11, Windows 11
