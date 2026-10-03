@@ -39,17 +39,30 @@ export const VOTE_STREAK_BADGES = [
 ];
 
 /**
+ * Tenure, not a ladder: one badge, earned by having a `firstSeenAt` before the cutoff. Announced
+ * in advance so joining the support server before then is a reason to try Vibe now rather than
+ * later — see `src/player/events/tips.js`'s `founder` tip.
+ */
+export const FOUNDER_CUTOFF = new Date("2027-01-01T00:00:00Z");
+export const FOUNDER_BADGE = { name: "Founder", icon: Emojis.BADGE_FOUNDER, color: "#E05570" };
+
+/**
  * @param {object} stats
  * @param {number} stats.totalListeningTime - Milliseconds.
  * @param {number} stats.sessionCount - Tracks credited with listening time.
  * @param {?{streakWeeks?: number, lastWeek?: ?number}} [stats.voting]
+ * @param {Date|string|number|null} [stats.firstSeenAt] - When this user's document was created.
+ *        `null`/missing (a document written before the field existed) never earns Founder.
  * @param {Date|number} [now]
- * @returns {Array<{name: string, icon: string, color: string}>} 0-3 tiers, the highest per track,
- *          in listening-time, tracks-listened, vote-streak order.
+ * @returns {Array<{name: string, icon: string, color: string}>} 0-4 tiers: Founder first (a
+ *          fixed fact, so it is never the one dropped for space), then the highest per
+ *          accrual track, in listening-time, tracks-listened, vote-streak order.
  */
-export function getEarnedBadgeTiers({ totalListeningTime, sessionCount, voting }, now = Date.now()) {
+export function getEarnedBadgeTiers({ totalListeningTime, sessionCount, voting, firstSeenAt }, now = Date.now()) {
   const hours = totalListeningTime / (60 * 60 * 1000);
   const tiers = [];
+
+  if (firstSeenAt && new Date(firstSeenAt) < FOUNDER_CUTOFF) tiers.push(FOUNDER_BADGE);
 
   const timeTier = LISTENING_TIME_BADGES.find((tier) => hours >= tier.hours);
   if (timeTier) tiers.push(timeTier);

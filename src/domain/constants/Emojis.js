@@ -25,11 +25,13 @@ const Emojis = Object.freeze({
   VOL_MID: "vol_mid",
   VOL_LOW: "vol_low",
   VOL_MUTE: "vol_mute",
+  // The `/nowplaying` bar: a plain line and a plain dot.
   LINE: "line",
   SLIDER: "slider",
-  // Static counterparts of LINE/SLIDER, for a deliberate visual choice.
-  LINE_STATIC: "line_static",
-  SLIDER_STATIC: "slider_static",
+  // A rainbow trail and an animated cat, an alternative look for the bar, kept for a later use. Nothing
+  // reads them yet; `EmoteService` still uploads them so they are ready.
+  LINE_NYAN: "line_nyan",
+  SLIDER_NYAN: "slider_nyan",
   // /invite's per-instance icons.
   VIBE: "vibe",
   VIBE2: "vibe2",
@@ -46,6 +48,9 @@ const Emojis = Object.freeze({
   // /invite's Support Server field icon.
   DISCORD: "discord",
   FILTER: "filter",
+  // `/leaderboard`'s heading, and the playlist panel's way back.
+  LEADERBOARD: "leaderboard",
+  BACK: "back",
   // The #faq panel's section tabs (with `WAVE` and `ADD`). New icons: `scripts/assets/fetch-emoji-icons.js`.
   SHIELD: "shield",
   EXPORT: "export",
@@ -73,6 +78,12 @@ const Emojis = Object.freeze({
   PREMIUM: "premium",
   // /invite's embed title.
   INVITE: "invite",
+  // The #faq panel's own heading.
+  FAQ: "faq",
+  // The #rules panel's own heading.
+  RULES: "rules",
+  // /invite's website link.
+  WEBSITE: "website",
 
   // /rank badges from scripts/assets/generate-badges.js: shape says which track, metal says how far.
   BADGE_TIME_BRONZE: "badge_time_bronze",
@@ -90,6 +101,8 @@ const Emojis = Object.freeze({
   BADGE_STREAK_DIAMOND: "badge_streak_diamond",
   BADGE_STREAK_RUBY: "badge_streak_ruby",
   BADGE_PREMIUM: "badge_premium",
+  // Tenure: used Vibe before the Founder cutoff. One tier, like premium.
+  BADGE_FOUNDER: "badge_founder",
   // Vote streaks (consecutive weeks with a vote).
   BADGE_VOTE_BRONZE: "badge_vote_bronze",
   BADGE_VOTE_SILVER: "badge_vote_silver",
@@ -123,8 +136,8 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.VOL_MUTE]: "🔇",
   [Emojis.LINE]: "▬",
   [Emojis.SLIDER]: "🔘",
-  [Emojis.LINE_STATIC]: "▬",
-  [Emojis.SLIDER_STATIC]: "🔘",
+  [Emojis.LINE_NYAN]: "▬",
+  [Emojis.SLIDER_NYAN]: "🔘",
   [Emojis.VIBE]: "🔴",
   [Emojis.VIBE2]: "🔵",
   [Emojis.VIBE3]: "🟡",
@@ -137,6 +150,8 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.MARK_VIBE_DEV]: "🟣",
   [Emojis.DISCORD]: "💬",
   [Emojis.FILTER]: "🎚️",
+  [Emojis.LEADERBOARD]: "🏆",
+  [Emojis.BACK]: "⬅️",
   [Emojis.SHIELD]: "🛡️",
   [Emojis.EXPORT]: "📄",
   [Emojis.TRASH]: "🗑️",
@@ -154,6 +169,9 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.JUMP]: "↪️",
   [Emojis.PREMIUM]: "👑",
   [Emojis.INVITE]: "🤖",
+  [Emojis.FAQ]: "❓",
+  [Emojis.RULES]: "⚖️",
+  [Emojis.WEBSITE]: "🌐",
   [Emojis.BADGE_TIME_BRONZE]: "🥉",
   [Emojis.BADGE_TIME_SILVER]: "🥈",
   [Emojis.BADGE_TIME_GOLD]: "🥇",
@@ -170,6 +188,7 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.BADGE_STREAK_DIAMOND]: "⚡",
   [Emojis.BADGE_STREAK_RUBY]: "⚡",
   [Emojis.BADGE_PREMIUM]: "👑",
+  [Emojis.BADGE_FOUNDER]: "🌟",
   [Emojis.BADGE_VOTE_BRONZE]: "⬆️",
   [Emojis.BADGE_VOTE_SILVER]: "⬆️",
   [Emojis.BADGE_VOTE_GOLD]: "⬆️",
