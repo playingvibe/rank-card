@@ -58,3 +58,38 @@ test("an avatar larger than any real one is refused rather than buffered", async
 
   assert.equal(await fetchAvatar(`http://127.0.0.1:${server.address().port}/huge.png`), null);
 });
+
+test("an oversized avatar that never states its length is cut off at the cap too", async (t) => {
+  const server = createServer((req, res) => {
+    // Chunked: no Content-Length for the header check to refuse on.
+    res.writeHead(200, { "Content-Type": "image/png" });
+    const chunk = Buffer.alloc(256 * 1024, 1);
+    let sent = 0;
+    const write = () => {
+      while (sent < 8 * 1024 * 1024) {
+        sent += chunk.length;
+        if (!res.write(chunk)) return res.once("drain", write);
+      }
+      res.end();
+    };
+    write();
+    req.on("close", () => res.destroy());
+  });
+  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+  t.after(() => server.closeAllConnections?.() ?? server.close());
+
+  assert.equal(await fetchAvatar(`http://127.0.0.1:${server.address().port}/huge.png`), null);
+});
+
+test("an avatar within the cap comes back whole, with or without a stated length", async (t) => {
+  const bytes = Buffer.alloc(300_000, 7);
+  const server = createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "image/png" });
+    res.end(bytes);
+  });
+  await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
+  t.after(() => server.close());
+
+  const got = await fetchAvatar(`http://127.0.0.1:${server.address().port}/ok.png`);
+  assert.equal(got?.length, bytes.length);
+});
