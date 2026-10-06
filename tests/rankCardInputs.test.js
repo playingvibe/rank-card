@@ -93,3 +93,19 @@ test("an avatar within the cap comes back whole, with or without a stated length
   const got = await fetchAvatar(`http://127.0.0.1:${server.address().port}/ok.png`);
   assert.equal(got?.length, bytes.length);
 });
+
+test("the background is drawn at the card's own pixels, not at half size and stretched", async () => {
+  const { renderBackground, SCALE, W, H } = await import("../src/presentation/components/cards/cardBackgrounds.js");
+
+  const canvas = renderBackground("grid", "#336699", true);
+
+  assert.equal(canvas.width, W * SCALE);
+  assert.equal(canvas.height, H * SCALE);
+});
+
+test("a background is remembered by style, colour and fade, and the memory it may take is bounded", async () => {
+  const { renderBackground } = await import("../src/presentation/components/cards/cardBackgrounds.js");
+
+  assert.equal(renderBackground("bars", "#112233", false), renderBackground("bars", "#112233", false), "the same canvas");
+  assert.notEqual(renderBackground("bars", "#112233", false), renderBackground("bars", "#112233", true));
+});

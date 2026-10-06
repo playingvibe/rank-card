@@ -12,10 +12,6 @@ export function formatDuration(ms) {
   return hours > 0 ? `${hours}:${pad(minutes)}:${pad(seconds)}` : `${minutes}:${pad(seconds)}`;
 }
 
-export function formatTotalDuration(tracks) {
-  return formatDuration(tracks.reduce((total, track) => total + (track.length ?? 0), 0));
-}
-
 /** A total in two units at most (`"48m"`, `"3h 24m"`, `"9d 11h"`), where a clock would be unreadable. */
 export function formatListeningSpan(ms) {
   if (!Number.isFinite(ms) || ms <= 0) return "0m";

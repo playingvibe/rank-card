@@ -6,7 +6,7 @@ import { getEarnedBadgeTiers } from "../../../domain/badges.js";
 import { getLevel, formatLevelProgress } from "../../../shared/format/level.js";
 import Emojis from "../../../domain/constants/Emojis.js";
 import { resolveAccent } from "../../../domain/constants/InstanceTheme.js";
-import { GROUND, H, W, drawBackground, hexToRgba, roundRect } from "./cardBackgrounds.js";
+import { GROUND, H, SCALE, W, drawBackground, hexToRgba, roundRect } from "./cardBackgrounds.js";
 import {
   isCardBackground,
   normaliseCardColor,
@@ -20,7 +20,6 @@ import {
  * The accent is a parameter so the caller decides it. Layout is in logical units and drawn at SCALE, so it stays crisp on high-DPI screens.
  */
 
-const SCALE = 2;
 
 const PAD = 44;
 const AVATAR = 112;

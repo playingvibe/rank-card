@@ -8,6 +8,8 @@ import TtlLruCache from "../../../shared/cache/TtlLruCache.js";
  */
 
 /** The frame, in logical units; `RankCard` draws it at its own SCALE. */
+/** The card is drawn at this many pixels per logical unit, so it stays crisp on high-DPI screens. */
+export const SCALE = 2;
 export const W = 900;
 export const H = 320;
 export const GROUND = "#0b0b0d";
@@ -42,12 +44,12 @@ const MARK_VIEWBOX = 1254;
 /**
  * `${style}:${colour}:${fade}` -> rendered background canvas.
  *
- * The bound is a security control: the colour is user-chosen, each entry holds ~1.15 MB, and
- * `PUT /api/appearance` has no rate limit, so an unbounded map was a memory exhaustion on demand.
- * The TTL matters as much as the cap: `TtlLruCache` evicts an expired entry only when its key is
- * read, so without it a quiet process would hold all 32 canvases.
+ * The bound is a security control: the colour is user-chosen, each entry holds ~4.6 MB (the card's own pixels,
+ * 1800 x 640), and `PUT /api/appearance` has no rate limit, so an unbounded map was a memory exhaustion on
+ * demand. The TTL matters as much as the cap: `TtlLruCache` evicts an expired entry only when its key is read, so
+ * without it a quiet process would hold all of them. Eight entries are the memory thirty-two half-size ones were.
  */
-const backgroundCache = new TtlLruCache({ maxSize: 32, ttlMs: 30 * 60 * 1000 });
+const backgroundCache = new TtlLruCache({ maxSize: 8, ttlMs: 30 * 60 * 1000 });
 
 function tint(hex, alpha) {
   return hexToRgba(hex, alpha);
@@ -190,13 +192,16 @@ function auroraField(ctx) {
 }
 
 /** Draws a background style, tinted, and caches it: the drawing is deterministic in its key. */
-function renderBackground(style, colour, faded) {
+export function renderBackground(style, colour, faded) {
   const cacheKey = `${style}:${colour}:${faded ? "fade" : "even"}`;
   const cached = backgroundCache.get(cacheKey);
   if (cached) return cached;
 
-  const canvas = createCanvas(W, H);
+  // At the card's own resolution, not at 1x: it is drawn into a context scaled by SCALE, and a 1x canvas was
+  // stretched to twice its size, the one soft element on an otherwise crisp card.
+  const canvas = createCanvas(W * SCALE, H * SCALE);
   const ctx = canvas.getContext("2d");
+  ctx.scale(SCALE, SCALE);
 
   ctx.fillStyle = GROUND;
   ctx.fillRect(0, 0, W, H);
