@@ -152,13 +152,23 @@ describe("renderRankCard", () => {
       assert.equal(hash(dark), hash(own));
     });
 
-    it("a background with no colour follows the card's accent, and a chosen colour still wins", async () => {
-      const followed = await renderRankCard(target, stats, "#4577B8", "aurora", null);
-      const explicit = await renderRankCard(target, stats, "#4577B8", "aurora", "#4577b8");
-      const other = await renderRankCard(target, stats, "#4577B8", "aurora", "#e05570");
+    it("a background with no colour is tinted in the bot's own colour, not the user's accent, and a chosen colour wins", async () => {
+      const previous = process.env.CLIENT_ID;
+      try {
+        // Vibe 2's real client id, so the bot's colour is not the flagship's.
+        process.env.CLIENT_ID = "1533281867523031070";
+        const own = resolveAccent(process.env.CLIENT_ID);
+        // An accent that is not Vibe 2's own colour, or the two tints below would be the same picture.
+        const followed = await renderRankCard(target, stats, "#4fd39c", "aurora", null);
+        const botTint = await renderRankCard(target, stats, "#4fd39c", "aurora", own);
+        const accentTint = await renderRankCard(target, stats, "#4fd39c", "aurora", "#4fd39c");
 
-      assert.equal(hash(followed), hash(explicit), "no colour reads as the accent");
-      assert.notEqual(hash(followed), hash(other), "an explicit colour is not overridden");
+        assert.equal(hash(followed), hash(botTint), "no colour reads as the bot's colour");
+        assert.notEqual(hash(followed), hash(accentTint), "and not as the accent the user picked");
+      } finally {
+        if (previous === undefined) delete process.env.CLIENT_ID;
+        else process.env.CLIENT_ID = previous;
+      }
     });
 
     it("defaults to this process's own instance via CLIENT_ID, not a hardcoded colour", async () => {

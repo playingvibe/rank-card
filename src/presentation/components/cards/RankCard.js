@@ -323,7 +323,7 @@ async function drawBadges(ctx, stats) {
  * Renders the card as PNG bytes. `stats` is `UserRepository.getListeningStats()`'s result.
  * `accent` defaults to this process's instance (`CLIENT_ID`). `premium` draws the crown; the caller
  * decides it (the bot uses `isPremiumActive()`), so the card holds no entitlement logic. An unknown
- * `background` degrades to the plain card. `backgroundColor` falls back to the card's accent when a style is set; a
+ * `background` degrades to the plain card. `backgroundColor` falls back to the bot's own colour when a style is set; a
  * `null`/`undefined` `fade` means the style's default (`resolveCardFade()`).
  */
 export default async function renderRankCard(
@@ -359,8 +359,9 @@ export default async function renderRankCard(
     drawBackground(
       ctx,
       style,
-      // No colour chosen: follow the card's accent, which is the bot's own colour unless the user picked one.
-      normaliseCardColor(backgroundColor) ?? accent,
+      // No colour chosen: the colour of the bot that draws the card, whatever accent the user picked, so "use the
+      // bot's colour" means the same thing for the tint as for the accent.
+      normaliseCardColor(backgroundColor) ?? resolveAccent(process.env.CLIENT_ID),
       resolveCardFade(style, fade)
     );
   } else {
