@@ -9,7 +9,9 @@ import renderRankCard, {
 import { resolveAccent } from "../src/domain/constants/InstanceTheme.js";
 import {
   CARD_BACKGROUND_STYLES,
+  cardAccentContrast,
   isCardBackground,
+  isReadableCardAccent,
   normaliseCardColor,
   resolveCardFade,
 } from "../src/domain/constants/CardBackgrounds.js";
@@ -141,6 +143,22 @@ describe("renderRankCard", () => {
       const second = await renderRankCard(target, stats, "#D9B15C");
 
       assert.equal(hash(first), hash(second));
+    });
+
+    it("an accent too dark to read on the ground is drawn in the bot's own colour", async () => {
+      const dark = await renderRankCard(target, stats, "#101018");
+      const own = await renderRankCard(target, stats, resolveAccent(process.env.CLIENT_ID));
+
+      assert.equal(hash(dark), hash(own));
+    });
+
+    it("a background with no colour follows the card's accent, and a chosen colour still wins", async () => {
+      const followed = await renderRankCard(target, stats, "#4577B8", "aurora", null);
+      const explicit = await renderRankCard(target, stats, "#4577B8", "aurora", "#4577b8");
+      const other = await renderRankCard(target, stats, "#4577B8", "aurora", "#e05570");
+
+      assert.equal(hash(followed), hash(explicit), "no colour reads as the accent");
+      assert.notEqual(hash(followed), hash(other), "an explicit colour is not overridden");
     });
 
     it("defaults to this process's own instance via CLIENT_ID, not a hardcoded colour", async () => {
@@ -342,5 +360,13 @@ describe("rank card backgrounds", () => {
     assert.equal(normaliseCardColor(null), null);
     assert.equal(normaliseCardColor("rebeccapurple"), undefined);
     assert.equal(normaliseCardColor("#12345"), undefined);
+  });
+
+  it("judges an accent by its contrast against the card's ground", () => {
+    assert.ok(cardAccentContrast("#ffffff") > 15, "white is far above the line");
+    assert.ok(cardAccentContrast("#000000") < 1.2, "black is the ground");
+    assert.equal(isReadableCardAccent(null), true, "null is the bot's own colour");
+    assert.equal(isReadableCardAccent("#e05570"), true);
+    assert.equal(isReadableCardAccent("#1a1a40"), false);
   });
 });

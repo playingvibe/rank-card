@@ -11,7 +11,7 @@ import {
   isCardBackground,
   normaliseCardColor,
   resolveCardFade,
-  DEFAULT_BACKGROUND_COLOR,
+  isReadableCardAccent,
 } from "../../../domain/constants/CardBackgrounds.js";
 
 /**
@@ -323,7 +323,7 @@ async function drawBadges(ctx, stats) {
  * Renders the card as PNG bytes. `stats` is `UserRepository.getListeningStats()`'s result.
  * `accent` defaults to this process's instance (`CLIENT_ID`). `premium` draws the crown; the caller
  * decides it (the bot uses `isPremiumActive()`), so the card holds no entitlement logic. An unknown
- * `background` degrades to the plain card. `backgroundColor` falls back to the brand colour when a style is set; a
+ * `background` degrades to the plain card. `backgroundColor` falls back to the card's accent when a style is set; a
  * `null`/`undefined` `fade` means the style's default (`resolveCardFade()`).
  */
 export default async function renderRankCard(
@@ -338,6 +338,9 @@ export default async function renderRankCard(
   // Validated like the other appearance fields, since a non-colour accent would throw inside the
   // gradient.
   accent = normaliseCardColor(accent) ?? resolveAccent(process.env.CLIENT_ID);
+  // An accent too dark to read on the ground (a value stored before the page checked, or written by hand) is drawn
+  // in the bot's own colour instead of leaving a bar nobody can see.
+  if (!isReadableCardAccent(accent)) accent = resolveAccent(process.env.CLIENT_ID);
 
   const canvas = createCanvas(W * SCALE, H * SCALE);
   const ctx = canvas.getContext("2d");
@@ -356,7 +359,8 @@ export default async function renderRankCard(
     drawBackground(
       ctx,
       style,
-      normaliseCardColor(backgroundColor) ?? DEFAULT_BACKGROUND_COLOR,
+      // No colour chosen: follow the card's accent, which is the bot's own colour unless the user picked one.
+      normaliseCardColor(backgroundColor) ?? accent,
       resolveCardFade(style, fade)
     );
   } else {
