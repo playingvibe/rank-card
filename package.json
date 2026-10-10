@@ -19,10 +19,10 @@
     "url": "git+https://github.com/playingvibe/rank-card.git"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^1.0.8"
+    "@napi-rs/canvas": "^1.0.10"
   },
   "devDependencies": {
-    "eslint": "^10.10.0",
-    "globals": "^17.12.0"
+    "eslint": "^10.12.0",
+    "globals": "^17.13.0"
   }
 }
