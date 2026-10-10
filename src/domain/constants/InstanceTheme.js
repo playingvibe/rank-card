@@ -2,24 +2,24 @@
 /**
  * Each instance's accent by client id: the one source of every surface's palette.
  * `scripts/sync-web-shared.js` generates the Activity's copy (with `NAMES` and `ACCENT_HOVERS`);
- * edit here, then `npm run sync:web`. Desaturated and darkened for a near-black ground, not
- * pastel (chalky there). Vibe Dev is white so it is never mistaken for a real instance.
+ * edit here, then `npm run sync:web`. Each is the bot's own colour from `resource/brand/` (its avatar), flat and
+ * readable on the near-black ground. Vibe Dev is white so it is never mistaken for a real instance.
  */
 export const ACCENTS = {
   "800075471290236968": "#FFFFFF", // Vibe Dev
-  "815329807377498153": "#E05570", // Vibe
-  "1533281867523031070": "#4577B8", // Vibe 2
-  "1001935021436850207": "#D9B15C", // Vibe 3
-  "820636341788344321": "#559E68", // Vibe Beta
+  "815329807377498153": "#FF295E", // Vibe
+  "1533281867523031070": "#1A79FF", // Vibe 2
+  "1001935021436850207": "#FFC20A", // Vibe 3
+  "820636341788344321": "#00A331", // Vibe Beta
 };
 
 /** The Activity's hover shades: lighter, except Vibe Dev's, which dims from white. */
 export const ACCENT_HOVERS = {
   "800075471290236968": "#D8DEE9", // Vibe Dev
-  "815329807377498153": "#ec6a83", // Vibe
-  "1533281867523031070": "#5A8ECC", // Vibe 2
-  "1001935021436850207": "#e8c477", // Vibe 3
-  "820636341788344321": "#6bb37e", // Vibe Beta
+  "815329807377498153": "#ff4371", // Vibe
+  "1533281867523031070": "#3589FF", // Vibe 2
+  "1001935021436850207": "#ffc927", // Vibe 3
+  "820636341788344321": "#1fae4a", // Vibe Beta
 };
 
 /** The flagship's palette is every surface's fallback, for a client id not listed here. */

@@ -30,9 +30,9 @@ import renderRankCard from "./src/presentation/components/cards/RankCard.js";
 const png = await renderRankCard(
   { username: "mara", avatarUrl: null },                    // who; null draws an initial
   { totalListeningTime: 227 * 3600 * 1000, currentStreak: 12, longestStreak: 31, sessionCount: 640 },
-  "#e05570",                                                // accent (null for the default)
+  "#ff295e",                                                // accent (null for the default)
   "bars",                                                   // background style, or null
-  "#e05570",                                                // background colour
+  "#ff295e",                                                // background colour
   null,                                                     // fade, null for the style's default
   true                                                      // premium: draws the crown
 );

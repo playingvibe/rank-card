@@ -132,15 +132,15 @@ describe("renderRankCard", () => {
     const stats = { totalListeningTime: 30 * HOUR, currentStreak: 4, longestStreak: 9, sessionCount: 120 };
 
     it("a different accent produces genuinely different pixels, not just a different label", async () => {
-      const pink = await renderRankCard(target, stats, "#E05570");
-      const blue = await renderRankCard(target, stats, "#4577B8");
+      const pink = await renderRankCard(target, stats, "#FF295E");
+      const blue = await renderRankCard(target, stats, "#1A79FF");
 
       assert.notEqual(hash(pink), hash(blue));
     });
 
     it("is deterministic — the same accent renders byte-identical output", async () => {
-      const first = await renderRankCard(target, stats, "#D9B15C");
-      const second = await renderRankCard(target, stats, "#D9B15C");
+      const first = await renderRankCard(target, stats, "#FFC20A");
+      const second = await renderRankCard(target, stats, "#FFC20A");
 
       assert.equal(hash(first), hash(second));
     });
@@ -306,11 +306,11 @@ describe("rank card backgrounds", () => {
     // light sources in the same corner is what made a custom background look broken. So on a
     // backgrounded card the accent must no longer change the image at all beyond the progress bar
     // and level text -- which it still does, hence "notEqual" on the plain pair as the control.
-    const plainPink = hash(await renderRankCard(TARGET, STATS, "#e05570", null));
+    const plainPink = hash(await renderRankCard(TARGET, STATS, "#ff295e", null));
     const plainBlue = hash(await renderRankCard(TARGET, STATS, "#5aa9f0", null));
     assert.notEqual(plainPink, plainBlue, "control: the accent does change the plain card");
 
-    const bgPink = hash(await renderRankCard(TARGET, STATS, "#e05570", "waves", "#7b3fe4"));
+    const bgPink = hash(await renderRankCard(TARGET, STATS, "#ff295e", "waves", "#7b3fe4"));
     const bgBlue = hash(await renderRankCard(TARGET, STATS, "#5aa9f0", "waves", "#7b3fe4"));
     assert.notEqual(bgPink, bgBlue, "the accent still colours the bar and the level readout");
   });
@@ -376,7 +376,7 @@ describe("rank card backgrounds", () => {
     assert.ok(cardAccentContrast("#ffffff") > 15, "white is far above the line");
     assert.ok(cardAccentContrast("#000000") < 1.2, "black is the ground");
     assert.equal(isReadableCardAccent(null), true, "null is the bot's own colour");
-    assert.equal(isReadableCardAccent("#e05570"), true);
+    assert.equal(isReadableCardAccent("#ff295e"), true);
     assert.equal(isReadableCardAccent("#1a1a40"), false);
   });
 });

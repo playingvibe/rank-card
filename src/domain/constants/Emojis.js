@@ -107,6 +107,8 @@ const Emojis = Object.freeze({
   BADGE_PREMIUM: "badge_premium",
   // Tenure: used Vibe before the Founder cutoff. One tier, like premium.
   BADGE_FOUNDER: "badge_founder",
+  // Boosting the support server. Drawn and uploadable; no rule awards it yet (see `BOOST_BADGE` in `badges.js`).
+  BADGE_BOOST: "badge_boost",
   // Vote streaks (consecutive weeks with a vote).
   BADGE_VOTE_BRONZE: "badge_vote_bronze",
   BADGE_VOTE_SILVER: "badge_vote_silver",
@@ -195,6 +197,7 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.BADGE_STREAK_RUBY]: "⚡",
   [Emojis.BADGE_PREMIUM]: "👑",
   [Emojis.BADGE_FOUNDER]: "🌟",
+  [Emojis.BADGE_BOOST]: "🚀",
   [Emojis.BADGE_VOTE_BRONZE]: "⬆️",
   [Emojis.BADGE_VOTE_SILVER]: "⬆️",
   [Emojis.BADGE_VOTE_GOLD]: "⬆️",
