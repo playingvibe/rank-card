@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        A background exists in two places: a canvas drawing here, and CSS in
-        [playingvibe/activity](https://github.com/playingvibe/activity). A new one needs both.
+        A background exists in two places: a canvas drawing here, and CSS in the Vibe player, which is not
+        public. A new one needs both; the maintainers add the CSS.
   - type: input
     id: key
     attributes:

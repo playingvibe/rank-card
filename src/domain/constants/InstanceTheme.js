@@ -7,19 +7,19 @@
  */
 export const ACCENTS = {
   "800075471290236968": "#FFFFFF", // Vibe Dev
-  "815329807377498153": "#FF295E", // Vibe
-  "1533281867523031070": "#1A79FF", // Vibe 2
-  "1001935021436850207": "#FFC20A", // Vibe 3
-  "820636341788344321": "#00A331", // Vibe Beta
+  "815329807377498153": "#F03362", // Vibe
+  "1533281867523031070": "#2579EF", // Vibe 2
+  "1001935021436850207": "#EDB816", // Vibe 3
+  "820636341788344321": "#0B9334", // Vibe Beta
 };
 
 /** The Activity's hover shades: lighter, except Vibe Dev's, which dims from white. */
 export const ACCENT_HOVERS = {
   "800075471290236968": "#D8DEE9", // Vibe Dev
-  "815329807377498153": "#ff4371", // Vibe
-  "1533281867523031070": "#3589FF", // Vibe 2
-  "1001935021436850207": "#ffc927", // Vibe 3
-  "820636341788344321": "#1fae4a", // Vibe Beta
+  "815329807377498153": "#f24b75", // Vibe
+  "1533281867523031070": "#3F89F1", // Vibe 2
+  "1001935021436850207": "#efc132", // Vibe 3
+  "820636341788344321": "#28a04c", // Vibe Beta
 };
 
 /** The flagship's palette is every surface's fallback, for a client id not listed here. */

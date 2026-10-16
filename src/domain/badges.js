@@ -44,7 +44,7 @@ export const VOTE_STREAK_BADGES = [
  * later — see `src/player/events/tips.js`'s `founder` tip.
  */
 export const FOUNDER_CUTOFF = new Date("2027-01-01T00:00:00Z");
-export const FOUNDER_BADGE = { name: "Founder", icon: Emojis.BADGE_FOUNDER, color: "#FF295E" };
+export const FOUNDER_BADGE = { name: "Founder", icon: Emojis.BADGE_FOUNDER, color: "#F03362" };
 
 /** Boosting the support server: earned while `boostingSince` is set (see `BoosterSyncService`), gone when the boost ends. */
 export const BOOST_BADGE = { name: "Booster", icon: Emojis.BADGE_BOOST, color: "#FF73FA" };

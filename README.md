@@ -30,9 +30,9 @@ import renderRankCard from "./src/presentation/components/cards/RankCard.js";
 const png = await renderRankCard(
   { username: "mara", avatarUrl: null },                    // who; null draws an initial
   { totalListeningTime: 227 * 3600 * 1000, currentStreak: 12, longestStreak: 31, sessionCount: 640 },
-  "#ff295e",                                                // accent (null for the default)
+  "#f03362",                                                // accent (null for the default)
   "bars",                                                   // background style, or null
-  "#ff295e",                                                // background colour
+  "#f03362",                                                // background colour
   null,                                                     // fade, null for the style's default
   true                                                      // premium: draws the crown
 );
@@ -90,8 +90,7 @@ The code is [MIT](LICENSE). That covers everything except:
 - **Outfit** (`resource/fonts/`), by The Outfit Project Authors, under the SIL Open Font License 1.1
   ([`resource/fonts/OFL-Outfit.txt`](resource/fonts/OFL-Outfit.txt)).
 
-Related: [playingvibe/activity](https://github.com/playingvibe/activity),
-[playingvibe/brand](https://github.com/playingvibe/brand),
+Related: [playingvibe/brand](https://github.com/playingvibe/brand),
 [playingvibe/website](https://github.com/playingvibe/website).
 
 ## Security

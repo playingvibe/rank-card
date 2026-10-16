@@ -35,8 +35,8 @@ CI runs lint and the tests on every pull request, with no access to any secret.
 ## Backgrounds
 
 A background is a style drawn behind the card's content. Each one exists **twice**: as a canvas drawing here
-and as CSS in the [Activity](https://github.com/playingvibe/activity), so a user's choice looks the same on
-both. A new background is therefore **two pull requests**, one to each repository, linked to each other.
+and as CSS in the Vibe player (the Activity, which is not public), so a user's choice looks the same on
+both. A pull request here adds the canvas drawing; the maintainers add the matching CSS.
 
 To add one here:
 

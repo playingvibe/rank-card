@@ -51,6 +51,8 @@ const Emojis = Object.freeze({
   // `/leaderboard`'s heading, and the playlist panel's way back.
   LEADERBOARD: "leaderboard",
   BACK: "back",
+  // The playlist panel's Edit button, which carries no label.
+  EDIT: "edit",
   // The "More to come soon" entry on both premium tiers.
   SOON: "soon",
   // 24/7: a Vibe that stays. Not `RECONNECT`, whose plug is shown coming apart.
@@ -158,6 +160,7 @@ export const DEFAULT_EMOJI_FALLBACKS = Object.freeze({
   [Emojis.FILTER]: "🎚️",
   [Emojis.LEADERBOARD]: "🏆",
   [Emojis.BACK]: "⬅️",
+  [Emojis.EDIT]: "✏️",
   [Emojis.SOON]: "✨",
   [Emojis.STAY]: "♾️",
   [Emojis.SHIELD]: "🛡️",
